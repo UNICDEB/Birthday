@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>শুভ ২৫তম জন্মদিন — শুভেচ্ছা</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f172a; /* dark navy */
+      --bg2:#0b1220; /* darker */
+      --accent:#ff6b6b; /* coral */
+      --accent-2:#ffd166; /* warm yellow */
+      --glass: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Noto Sans Bengali', 'Noto Sans Devanagari', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,107,107,0.08), transparent 8%), radial-gradient(900px 400px at 90% 85%, rgba(255,209,102,0.04), transparent 6%), linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#fff;
+      overflow:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+    }
+
+    /* Card */
+    .card{
+      width:min(980px,94%);
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:18px;
+      padding:36px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      position:relative;
+      overflow:visible;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    .right-controls{margin-left:auto;text-align:right}
+
+    .avatar{
+      width:96px;height:96px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;color:#112;
+      box-shadow:0 8px 24px rgba(255,107,107,0.12), inset 0 -8px 24px rgba(255,255,255,0.06);
+      flex:0 0 96px;
+    }
+
+    .title{
+      line-height:1.05;
+    }
+    .title h1{margin:0;font-size:28px}
+    .title p{margin:6px 0 0;opacity:0.9}
+
+    .main-quote{
+      margin-top:18px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+      position:relative; min-height:120px;
+    }
+
+    /* Typewriter effect */
+    .quote-text{
+      font-size:22px;
+      font-weight:600;
+      letter-spacing:0.6px;
+      direction:ltr; /* Bengali reads left-to-right in this layout */
+      white-space:pre-wrap;
+      display:inline-block;
+      text-align:center;
+    }
+    .cursor{display:inline-block;width:10px;height:26px;background:#fff;margin-left:6px;vertical-align:bottom;animation:blink 1s steps(2) infinite}
+
+    .main-quote .quote-wrap{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+    @keyframes blink{50%{opacity:0}}
+
+    .controls{display:flex;gap:12px;margin-top:16px;align-items:center}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:10px 14px;border-radius:10px;color:#fff;cursor:pointer;backdrop-filter: blur(6px);}
+    .btn:hover{transform:translateY(-4px);transition:transform .18s}
+
+    /* Floating balloons */
+    .balloons{position:absolute;inset:0;pointer-events:none}
+    .balloon{position:absolute;bottom:-120px;width:70px;height:96px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:0.95;transform-origin:center bottom}
+    .balloon:after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:-18px;width:2px;height:28px;background:linear-gradient(180deg,rgba(0,0,0,0.15),transparent);}
+
+    /* several keyframes for varied motion */
+    @keyframes floatUp{0%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-200vh) rotate(8deg)}100%{transform:translateY(-420vh) rotate(-6deg)}}
+
+    /* floating celebratory message */
+    .float-message{
+      position:absolute;
+      left:50%;
+      top:30%;
+      transform:translateX(-50%) translateY(0) scale(1);
+      background:linear-gradient(90deg, rgba(255,107,107,0.12), rgba(255,209,102,0.08));
+      color:#fff;
+      padding:14px 20px;
+      border-radius:12px;
+      font-size:28px;
+      font-weight:700;
+      box-shadow:0 10px 40px rgba(2,6,23,0.6);
+      pointer-events:none;
+      opacity:0;
+      filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));
+      animation: floatMessage 2600ms cubic-bezier(.2,.9,.2,1) forwards;
+      z-index:40;
+    }
+    @keyframes floatMessage{
+      0%{opacity:0; transform:translateX(-50%) translateY(0) scale(0.95) rotate(-6deg);} 
+      10%{opacity:1; transform:translateX(-50%) translateY(-8px) scale(1.05) rotate(4deg);} 
+      70%{opacity:1; transform:translateX(-50%) translateY(-160px) scale(1) rotate(-2deg);} 
+      100%{opacity:0; transform:translateX(-50%) translateY(-260px) scale(0.98) rotate(6deg);} 
+    }
+
+    /* confetti canvas overlay */
+    #confetti{position:absolute;inset:0;pointer-events:none}
+
+    /* footer */
+    footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px}
+    .small{opacity:0.85;font-size:14px}
+
+    /* responsive */
+    @media (max-width:640px){
+      /* Reduce overall padding and make the card fit smaller screens */
+      body{padding:18px}
+      .card{padding:18px}
+
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .right-controls{margin-left:0;text-align:left;width:100%;display:flex;justify-content:flex-start}
+
+      .avatar{width:64px;height:64px;font-size:18px}
+      .title h1{font-size:20px}
+      .title p{font-size:13px}
+
+      .main-quote{padding:14px;border-radius:10px;min-height:0}
+      .quote-text{font-size:16px}
+      .cursor{height:20px;width:8px}
+
+      .controls{justify-content:center}
+      .btn{padding:12px 16px;font-size:15px}
+
+      .float-message{font-size:18px;padding:10px 14px}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="balloons" aria-hidden="true">
+      <!-- balloons are generated by JS for variety -->
+    </div>
+
+    <canvas id="confetti" width="800" height="600" aria-hidden="true"></canvas>
+
+    <header>
+      <div class="avatar" aria-hidden="true">২৫</div>
+      <div class="title">
+        <h1>শুভ ২৫তম জন্মদিন!</h1>
+        <p>তারিখ: 08 ডিসেম্বর 2025 — এই বিশেষ দিনে তোমাকে একটি ছোট উপহার।</p>
+      </div>
+      <div class="right-controls">
+        <button class="btn" id="playBtn" title="Play/Pause music">♪ গান</button>
+      </div>
+    </header>
+
+    <section class="main-quote" aria-live="polite">
+      <div class="quote-wrap">
+        <div class="quote-text" id="quote"></div>
+        <div class="cursor" id="cursor"></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="surprise">চমক দেখাও</button>
+      </div>
+    </section>
+
+    <footer>
+      <div class="small">— তোমার বন্ধু — বিশেষ শুভেচ্ছাসহ ♥</div>
+    </footer>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <!-- short happy tune generated as data URI (very tiny) -->
+    <!-- For a richer experience replace the src with your favorite mp3/ogg file -->
+  </audio>
+
+  <script>
+    // Using the user's poem as the single quote to display
+    const quotes = [
+      'শুভ জন্মদিন বন্ধু!\nতোমার হাসিতে রঙিন হোক প্রতিটা দিনের সকাল,\nতোমার স্বপ্নে জ্বলে উঠুক নতুন আলোর প্রদীপ,\nতোমার পথে থাকুক শুধু আনন্দের উৎসব,\nআর আমাদের বন্ধুত্ব থাকুক চিরকাল অটুট ।'
+    ];
+
+    // Typewriter / typing effect
+    const quoteEl = document.getElementById('quote');
+    const cursor = document.getElementById('cursor');
+    let qi = 0; // index in quotes
+    let ci = 0; // char index
+    let typing = true;
+
+    function typeOnce(text, cb){
+      quoteEl.textContent = '';
+      ci = 0;
+      typing = true;
+      cursor.style.display = 'inline-block';
+      function step(){
+        if(ci < text.length){
+          quoteEl.textContent += text.charAt(ci);
+          ci++;
+          const delay = 40 + Math.random()*80; // human-like
+          setTimeout(step, delay);
+        } else {
+          typing = false;
+          cursor.style.display = 'none';
+          if(cb) setTimeout(cb, 600);
+        }
+      }
+      step();
+    }
+
+    function showNext(){
+      qi = (qi+1) % quotes.length;
+      typeOnce(quotes[qi]);
+    }
+
+    // start with first
+    typeOnce(quotes[0]);
+
+    // Surprise button: bursts confetti, switches quote, and floats a celebratory message
+    document.getElementById('surprise').addEventListener('click', ()=>{
+      randomBurst(120);
+      qi = Math.floor(Math.random()*quotes.length);
+      typeOnce(quotes[qi]);
+      floatMessage('শুভ ২৫তম জন্মদিন, পায়েল ');
+    });
+
+    /* 'print' button removed from DOM; printing via browser menu now */
+
+    // Simple confetti canvas
+    const confetti = document.getElementById('confetti');
+    const ctx = confetti.getContext('2d');
+    let W = confetti.width = window.innerWidth;
+    let H = confetti.height = window.innerHeight;
+
+    window.addEventListener('resize', ()=>{ W = confetti.width = window.innerWidth; H = confetti.height = window.innerHeight; });
+
+    // particles
+    const colors = ['#ff6b6b','#ffd166','#6bcB77','#7bdff0','#c792ea'];
+    let particles = [];
+
+    function randomBurst(count=60){
+      for(let i=0;i<count;i++){
+        particles.push({
+          x: W/2 + (Math.random()-0.5)*200,
+          y: H/2 + (Math.random()-0.5)*100,
+          vx: (Math.random()-0.5)*8,
+          vy: (Math.random()-3.5)*8,
+          size: 6 + Math.random()*10,
+          color: colors[Math.floor(Math.random()*colors.length)],
+          life: 60 + Math.random()*60
+        });
+      }
+    }
+
+    function updateConfetti(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=particles.length-1;i>=0;i--){
+        const p = particles[i];
+        p.vy += 0.25; // gravity
+        p.x += p.vx; p.y += p.vy; p.life--;
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.rotate((p.life%360)*Math.PI/180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+        ctx.restore();
+        if(p.life<=0 || p.y>H+50) particles.splice(i,1);
+      }
+      requestAnimationFrame(updateConfetti);
+    }
+    updateConfetti();
+
+    // floating celebratory message
+    function floatMessage(text){
+      const card = document.querySelector('.card');
+      const msg = document.createElement('div');
+      msg.className = 'float-message';
+      msg.textContent = text;
+      card.appendChild(msg);
+      // remove after animation completes
+      setTimeout(()=>{ msg.remove(); }, 3000);
+    }
+
+    // auto burst on load
+    setTimeout(()=>randomBurst(90),900);
+
+    // Balloons generator
+    const balloonsEl = document.querySelector('.balloons');
+    function makeBalloon(color,left,duration,delay,scale){
+      const b = document.createElement('div');
+      b.className='balloon';
+      b.style.background = color;
+      b.style.left = left+ '%';
+      b.style.width = (60*scale) + 'px';
+      b.style.height = (86*scale) + 'px';
+      b.style.bottom = '-140px';
+      b.style.opacity = 0.95;
+      b.style.animation = `floatUp ${duration}s linear ${delay}s forwards`;
+      balloonsEl.appendChild(b);
+      // remove after animation ends
+      setTimeout(()=>b.remove(), (delay+duration+2)*1000);
+    }
+
+    // spawn a few
+    const balloonColors = ['#ff6b6b','#ffd166','#7bdff0','#c792ea','#6bcB77'];
+    for(let i=0;i<8;i++){
+      const left = Math.random()*100;
+      const dur = 18 + Math.random()*18;
+      const dly = Math.random()*6;
+      const scale = 0.7 + Math.random()*0.8;
+      makeBalloon(balloonColors[i%balloonColors.length], left, dur, dly, scale);
+    }
+
+    // gentle continuous spawner to keep the page lively
+    setInterval(()=>{
+      const left = Math.random()*100;
+      const dur = 18 + Math.random()*18;
+      const dly = 0;
+      const scale = 0.6 + Math.random()*0.9;
+      makeBalloon(balloonColors[Math.floor(Math.random()*balloonColors.length)], left, dur, dly, scale);
+    },3500);
+
+    // Play a tiny generated tone for fun (WebAudio simple melody)
+    const playBtn = document.getElementById('playBtn');
+    let audioCtx=null, playing=false;
+    playBtn.addEventListener('click',async ()=>{
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if(!playing){
+        playMelody(); playBtn.textContent='■ বন্ধ করতে ক্লিক করুন';
+      } else {
+        audioCtx.close(); audioCtx = null; playBtn.textContent='♪ গান';
+      }
+      playing = !playing;
+    });
+
+    function playMelody(){
+      if(!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type='sine';
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.frequency.setValueAtTime(440, now);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.06, now+0.02);
+      // make a simple 6-note ascending melody
+      const notes = [440,493.88,523.25,587.33,659.25,783.99];
+      let t = now;
+      notes.forEach((f,i)=>{
+        const o = audioCtx.createOscillator();
+        o.type='triangle'; o.frequency.setValueAtTime(f,t);
+        const g = audioCtx.createGain(); g.gain.setValueAtTime(0, t);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t); g.gain.linearRampToValueAtTime(0.06,t+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,t+0.48);
+        o.stop(t+0.5);
+        t += 0.5;
+      });
+
+      // schedule a few bursts of small tones
+      setTimeout(()=>{ if(audioCtx) playMelody(); }, 1200);
+    }
+
+    // interactive heart particles on click
+    document.body.addEventListener('click', (e)=>{
+      // don't fire when clicking buttons
+      if(e.target.closest('.btn')) return;
+      for(let i=0;i<12;i++){
+        particles.push({ x:e.clientX, y:e.clientY, vx:(Math.random()-0.5)*6, vy:(Math.random()-1.5)*6, size:6+Math.random()*8, color:colors[Math.floor(Math.random()*colors.length)], life:40+Math.random()*40 });
+      }
+    });
+
+    // accessibility: allow keyboard to cycle quotes
+    window.addEventListener('keydown',(e)=>{ if(e.key==='ArrowRight') showNext(); if(e.key===' ') { e.preventDefault(); randomBurst(80);} });
+
+  </script>
+</body>
+</html>
